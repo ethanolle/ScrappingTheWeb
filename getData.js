@@ -31,7 +31,7 @@ const addToJson = (objToAdd) => {
   fs.writeFileSync("answersScrapes.json", answersJson, "utf-8");
 };
 
-let url = "https://www.answers.com/Q/How_can_you_cut_onion_without_crying";
+let url = "https://www.answers.com/Q/What_color_absorbs_the_most_light";
 const websiteUrl = checkTypeOfWebsite(url);
 
 if (websiteUrl == "answers.com") {
@@ -54,6 +54,7 @@ if (websiteUrl == "answers.com") {
       sumObject.url = url;
 
       addToJson(sumObject);
+      console.log(dataPost);
       console.log(sumObject);
       console.log("Scraping Done...");
     } else {
