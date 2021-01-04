@@ -32,37 +32,37 @@ const addToJson = (objToAdd) => {
 };
 
 let url = "https://www.answers.com/Q/What_color_absorbs_the_most_light";
-const websiteUrl = checkTypeOfWebsite(url);
+const getDataOfPost = (url) => {
+  const websiteUrl = checkTypeOfWebsite(url);
+  if (websiteUrl == "answers.com") {
+    // requesting the html and then searching in it to find the data that we need.
+    request(url, (error, response, html) => {
+      if (!error && response.statusCode == 200) {
+        let $ = cheerio.load(html);
+        let title = $("title").text();
+        let answeredDate = $("h6").first().next().text();
+        // getting the value in the script method where all the information abbout the post is stored
+        var dataPost = JSON.parse(html.match(/window.appConfig = (\{.*\})/)[1]);
+        let postVotes = dataPost.content.answerCount;
+        let topics = getTopics(dataPost);
+        // Insert the data in the object
+        sumObject.websiteUrl = websiteUrl;
+        sumObject.title = title;
+        sumObject.topics = topics;
+        sumObject.postVotes = postVotes;
+        sumObject.answeredDate = answeredDate;
+        sumObject.url = url;
+        console.log(sumObject);
+        addToJson(sumObject);
+      } else {
+        console.log("Scrapping Failed");
+        console.log(error);
+      }
+    });
+  } else {
+    // if the website url is not one of our website in the if else.
+    console.log("not answers.com website");
+  }
+};
 
-if (websiteUrl == "answers.com") {
-  // requesting the html and then searching in it to find the data that we need.
-  request(url, (error, response, html) => {
-    if (!error && response.statusCode == 200) {
-      let $ = cheerio.load(html);
-      let title = $("title").text();
-      let answeredDate = $("h6").first().next().text();
-      // getting the value in the script method where all the information abbout the post is stored
-      var dataPost = JSON.parse(html.match(/window.appConfig = (\{.*\})/)[1]);
-      let postVotes = dataPost.content.answerCount;
-      let topics = getTopics(dataPost);
-      // Insert the data in the object
-      sumObject.websiteUrl = websiteUrl;
-      sumObject.title = title;
-      sumObject.topics = topics;
-      sumObject.postVotes = postVotes;
-      sumObject.answeredDate = answeredDate;
-      sumObject.url = url;
-
-      addToJson(sumObject);
-      console.log(dataPost);
-      console.log(sumObject);
-      console.log("Scraping Done...");
-    } else {
-      console.log("Scrapping Failed");
-      console.log(error);
-    }
-  });
-} else {
-  // if the website url is not one of our website in the if else.
-  console.log("not answers.com website");
-}
+exports.getDataOfPost = getDataOfPost;
