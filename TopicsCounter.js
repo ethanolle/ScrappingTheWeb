@@ -1,35 +1,29 @@
 const fs = require("fs");
 const posts = require("./answersScrapes.json");
 let counterTopics = fs.readFileSync("counterTopics.json", "utf-8");
-let topicsValueParse = JSON.parse(counterTopics);
 let answers = JSON.parse(counterTopics);
 
-const checkExist = (topics) => {
+//here we are checking if the topics exist if it is we uping the counter if not creating one
+const checkAndAdd = (topics) => {
   for (var i = 0; i < answers.length; i++) {
     if (answers[i].topics == topics) {
-      answers[i].counter = answers[i].counter++;
-      return true;
+      console.log(answers[i].counter);
+      answers[i].counter = answers[i].counter + 1;
+      return;
     }
   }
   answers.push({ topics: `${topics}`, counter: 0 });
-  return false;
 };
 
-const addToJson = (objToAdd, jsonFile) => {
-  counterTopics = JSON.stringify(answers);
-  fs.writeFileSync(jsonFile, counterTopics, "utf-8");
-};
-
+//we are running over all answer and all there topics
 const topicsCounter = () => {
   posts.forEach((item, index) => {
-    posts[index].topics.forEach((item, index) => {
-      checkExist(item);
+    posts[index].topics.forEach((item) => {
+      checkAndAdd(item);
     });
   });
-  console.log(answers);
   counterTopics = JSON.stringify(answers);
   fs.writeFileSync("counterTopics.json", counterTopics, "utf-8");
 };
 
 topicsCounter();
-// let answers = JSON.parse(counterTopics);
