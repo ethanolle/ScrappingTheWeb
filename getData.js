@@ -24,11 +24,11 @@ const getTopics = (dataObject) => {
 };
 
 // transform a json string into a javascript array, append to array, transforming back, saving
-const addToJson = (objToAdd) => {
+const addToJson = (objToAdd, jsonFile) => {
   let answers = JSON.parse(answersJson);
   answers.push(objToAdd);
   answersJson = JSON.stringify(answers);
-  fs.writeFileSync("answersScrapes.json", answersJson, "utf-8");
+  fs.writeFileSync(jsonFile, answersJson, "utf-8");
 };
 
 let url = "https://www.answers.com/Q/What_color_absorbs_the_most_light";
@@ -53,7 +53,7 @@ const getDataOfPost = (url) => {
         sumObject.answeredDate = answeredDate;
         sumObject.url = url;
         console.log(sumObject);
-        addToJson(sumObject);
+        addToJson(sumObject, "answersScrapes.json");
       } else {
         console.log("Scrapping Failed");
         console.log(error);
@@ -66,3 +66,4 @@ const getDataOfPost = (url) => {
 };
 
 exports.getDataOfPost = getDataOfPost;
+exports.addToJson = addToJson;

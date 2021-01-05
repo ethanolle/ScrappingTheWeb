@@ -1,9 +1,6 @@
 const request = require("request");
 const cheerio = require("cheerio");
-const fs = require("fs");
-let answersJson = fs.readFileSync("answersScrapes.json", "utf-8");
 const { getDataOfPost } = require("./getData");
-let urlsQuestion = [];
 let urlsTopic = [
   "https://www.answers.com/t/science/unanswered?page=",
   "https://www.answers.com/t/math-and-arithmetic/unanswered?page=",
