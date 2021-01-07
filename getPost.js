@@ -32,7 +32,7 @@ const getUrlOfPage = (url) => {
 const activation = async () => {
   await urlsTopic.forEach((item, index, arr) => {
     let numberOfPage = 0;
-    while (numberOfPage <= 1) {
+    while (numberOfPage <= 10) {
       getUrlOfPage(`${item}${numberOfPage}`);
       numberOfPage = numberOfPage + 1;
       console.log(numberOfPage);

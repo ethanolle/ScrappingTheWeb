@@ -1,6 +1,6 @@
 const fs = require("fs");
-const posts = require("./answersScrapes.json");
-let counterTopics = fs.readFileSync("counterTopics.json", "utf-8");
+const posts = require("./const/answersScrapes.json");
+let counterTopics = fs.readFileSync("./const/counterTopics.json", "utf-8");
 let answers = JSON.parse(counterTopics);
 
 //here we are checking if the topics exist if it is we uping the counter if not creating one
@@ -23,7 +23,7 @@ const topicsCounter = () => {
     });
   });
   counterTopics = JSON.stringify(answers);
-  fs.writeFileSync("counterTopics.json", counterTopics, "utf-8");
+  fs.writeFileSync("./const/counterTopics.json", counterTopics, "utf-8");
 };
 
 topicsCounter();

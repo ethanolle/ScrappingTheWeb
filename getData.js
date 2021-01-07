@@ -23,7 +23,7 @@ const getTopics = (dataObject) => {
   return arrayTopics;
 };
 
-// transform a json string into a javascript array, append to array, transforming back, saving
+transform a json string into a javascript array, append to array, transforming back, saving
 const addToJson = (objToAdd, jsonFile) => {
   let answers = JSON.parse(answersJson);
   answers.push(objToAdd);
