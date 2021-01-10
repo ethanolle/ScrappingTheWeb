@@ -1,7 +1,7 @@
 const request = require("request");
 const cheerio = require("cheerio");
 const fs = require("fs");
-let answersJson = fs.readFileSync("answersScrapes.json", "utf-8");
+let answersJson = fs.readFileSync("./const/answersScrapes.json", "utf-8");
 let sumObject = {};
 
 // this function is made to check the type of the url givven
@@ -23,7 +23,7 @@ const getTopics = (dataObject) => {
   return arrayTopics;
 };
 
-transform a json string into a javascript array, append to array, transforming back, saving
+//transform a json string into a javascript array, append to array, transforming back, saving
 const addToJson = (objToAdd, jsonFile) => {
   let answers = JSON.parse(answersJson);
   answers.push(objToAdd);

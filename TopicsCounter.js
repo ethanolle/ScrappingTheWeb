@@ -1,5 +1,6 @@
 const fs = require("fs");
 const posts = require("./const/answersScrapes.json");
+// let postsParse = JSON.parse(posts);
 let counterTopics = fs.readFileSync("./const/counterTopics.json", "utf-8");
 let answers = JSON.parse(counterTopics);
 
