@@ -53,7 +53,7 @@ const getDataOfPost = (url) => {
         sumObject.answeredDate = answeredDate;
         sumObject.url = url;
         console.log(sumObject);
-        addToJson(sumObject, "answersScrapes.json");
+        addToJson(sumObject, "./const/answersScrapes.json");
       } else {
         console.log("Scrapping Failed");
         console.log(error);

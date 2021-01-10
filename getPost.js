@@ -12,8 +12,7 @@ let urlsTopic = [
   "https://www.answers.com/t/business-and-finance/unanswered?page=",
 ];
 
-let url = "https://www.answers.com/t/literature-and-language/new?page=0";
-const getUrlOfPage = (url) => {
+const getUrlsOfPage = (url) => {
   request(url, (error, response, html) => {
     if (!error && response.statusCode == 200) {
       let $ = cheerio.load(html);
@@ -33,7 +32,7 @@ const activation = async () => {
   await urlsTopic.forEach((item, index, arr) => {
     let numberOfPage = 0;
     while (numberOfPage <= 10) {
-      getUrlOfPage(`${item}${numberOfPage}`);
+      getUrlsOfPage(`${item}${numberOfPage}`);
       numberOfPage = numberOfPage + 1;
       console.log(numberOfPage);
     }
