@@ -3,16 +3,16 @@ const cheerio = require("cheerio");
 const { getDataOfPost } = require("./getData");
 let urlsTopic = [
   "https://www.answers.com/t/science/unanswered?page=",
-  "https://www.answers.com/t/math-and-arithmetic/unanswered?page=",
-  "https://www.answers.com/t/literature-and-language/unanswered?page=",
-  "https://www.answers.com/t/history/unanswered?page=",
-  "https://www.answers.com/t/technology/unanswered?page=",
-  "https://www.answers.com/t/health/unanswered?page=",
-  "https://www.answers.com/t/law-and-legal-issues/unanswered?page=",
-  "https://www.answers.com/t/business-and-finance/unanswered?page=",
+  // "https://www.answers.com/t/math-and-arithmetic/unanswered?page=",
+  // "https://www.answers.com/t/literature-and-language/unanswered?page=",
+  // "https://www.answers.com/t/history/unanswered?page=",
+  // "https://www.answers.com/t/technology/unanswered?page=",
+  // "https://www.answers.com/t/health/unanswered?page=",
+  // "https://www.answers.com/t/law-and-legal-issues/unanswered?page=",
+  // "https://www.answers.com/t/business-and-finance/unanswered?page=",
 ];
 
-const getUrlsOfPage = (url) => {
+const getUrlsOfPage = async (url) => {
   request(url, (error, response, html) => {
     if (!error && response.statusCode == 200) {
       let $ = cheerio.load(html);
@@ -28,15 +28,15 @@ const getUrlsOfPage = (url) => {
   });
 };
 
-const activation = async () => {
-  await urlsTopic.forEach((item, index, arr) => {
+const getPostActivation = async () => {
+  urlsTopic.forEach(async (item, index, arr) => {
     let numberOfPage = 0;
-    while (numberOfPage <= 10) {
+    while (numberOfPage <= 2) {
       getUrlsOfPage(`${item}${numberOfPage}`);
       numberOfPage = numberOfPage + 1;
       console.log(numberOfPage);
     }
   });
 };
-
-activation();
+getPostActivation();
+exports.getPostActivation = getPostActivation;

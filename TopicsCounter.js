@@ -1,6 +1,5 @@
 const fs = require("fs");
 const posts = require("./const/answersScrapes.json");
-// let postsParse = JSON.parse(posts);
 let counterTopics = fs.readFileSync("./const/counterTopics.json", "utf-8");
 let counterTopicsPars = JSON.parse(counterTopics);
 
@@ -16,15 +15,14 @@ const checkAndAdd = (topics) => {
 };
 
 //we are running over all answer and all there topics
-const topicsCounter = () => {
+const topicsCounterActivation = () => {
   posts.forEach((item, index) => {
     posts[index].topics.forEach((item) => {
       checkAndAdd(item);
     });
   });
-  console.log(counterTopics);
   counterTopics = JSON.stringify(counterTopicsPars);
   fs.writeFileSync("./const/counterTopics.json", counterTopics, "utf-8");
 };
-
-topicsCounter();
+topicsCounterActivation();
+exports.topicsCounterActivation = topicsCounterActivation;
